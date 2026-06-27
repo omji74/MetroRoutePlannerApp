@@ -30,7 +30,7 @@ function addEdge(a, b, line, t) {
   "Pulbangash", "Tis Hazari", "Kashmere Gate", "Shastri Park", "Seelampur", "Welcome",
   "Shahdara", "Mansarovar Park", "Jhilmil", "Dilshad Garden", "Shaheed Nagar",
   "Raj Bagh", "Rajdhani Park", "Mohan Nagar", "Arthala", "Hindon River",
-  "Sai Baaba Ashram", "Shaheed Sthal (New Bus Adda)"
+  "Hindon River", "Shaheed Sthal (New Bus Adda)"
 ].reduce((p, c) => { if (p) addEdge(p, c, "Red Line", 3); return c; }, null);
 
 // YELLOW LINE

@@ -1,6 +1,16 @@
+import { useState } from "react";
 import { LINE_CONFIG } from "../data/metroGraph";
 
 export default function Timeline({ segments }) {
+  const [expanded, setExpanded] = useState({});
+
+  const toggleExpand = (idx) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [idx]: !prev[idx],
+    }));
+  };
+
   if (!segments || segments.length === 0) return null;
 
   return (
@@ -11,6 +21,7 @@ export default function Timeline({ segments }) {
           const cfg = LINE_CONFIG[seg.line] || { color: "#888" };
           const isLast = si === segments.length - 1;
           const stationCount = seg.stations.length;
+          const isSegmentExpanded = !!expanded[si];
 
           return (
             <div key={si} className="timeline-group">
@@ -48,10 +59,36 @@ export default function Timeline({ segments }) {
                     </span>
                   </div>
 
+                  {/* Clickable expandable station list */}
                   {stationCount > 2 && (
-                    <div className="tl-via-list">
-                      via {seg.stations.slice(1, -1).slice(0, 4).join(" → ")}
-                      {stationCount > 6 ? " …" : ""}
+                    <div 
+                      className={`tl-via-list clickable ${isSegmentExpanded ? "expanded" : ""}`}
+                      onClick={() => toggleExpand(si)}
+                    >
+                      {!isSegmentExpanded ? (
+                        <div className="via-collapsed-view">
+                          <span>via {seg.stations.slice(1, -1).slice(0, 3).join(" → ")}
+                          {stationCount > 5 ? " …" : ""}</span>
+                          <span className="expand-badge" style={{ color: cfg.color }}>
+                            + Show all {stationCount - 2} stations
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="via-expanded-view">
+                          <div className="via-title" style={{ color: cfg.color }}>
+                            Passing through {stationCount - 2} stations:
+                          </div>
+                          <div className="via-stations-vertical">
+                            {seg.stations.slice(1, -1).map((st, sidx) => (
+                              <div key={sidx} className="via-station-row">
+                                <span className="via-dot" style={{ backgroundColor: cfg.color }} />
+                                <span className="via-station-text">{st}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="collapse-badge">&minus; Collapse list</div>
+                        </div>
+                      )}
                     </div>
                   )}
 

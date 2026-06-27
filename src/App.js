@@ -18,11 +18,37 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("planner");
   const [isPeak, setIsPeak] = useState(false);
   const { theme, toggle } = useTheme();
+  
+  // Visitor counter state
+  const [visitorCount, setVisitorCount] = useState(1284593);
+  const [activeCommuters, setActiveCommuters] = useState(48);
 
   // Detect peak travel hours (8-11 AM and 5-9 PM)
   useEffect(() => {
     const hour = new Date().getHours();
     setIsPeak((hour >= 8 && hour < 11) || (hour >= 17 && hour < 21));
+  }, []);
+
+  // Visitor counter logic
+  useEffect(() => {
+    const savedCount = localStorage.getItem("dmrc-visitor-count");
+    let count = savedCount ? parseInt(savedCount, 10) : 1284593;
+    
+    count += 1;
+    setVisitorCount(count);
+    localStorage.setItem("dmrc-visitor-count", count.toString());
+
+    // Simulated live updates every 4 seconds
+    const interval = setInterval(() => {
+      setVisitorCount(prev => {
+        const next = prev + Math.floor(Math.random() * 3) + 1;
+        localStorage.setItem("dmrc-visitor-count", next.toString());
+        return next;
+      });
+      setActiveCommuters(Math.floor(Math.random() * 25) + 40); // 40-65 live active
+    }, 4000);
+
+    return () => clearInterval(interval);
   }, []);
 
   // Calculate route with a small artificial delay to show Dijkstra processing
@@ -50,7 +76,7 @@ export default function App() {
       {/* Header containing brand and theme switcher */}
       <Header theme={theme} toggleTheme={toggle} />
 
-      {/* Optional PWA banner */}
+      {/* Slide-in PWA Toast Popup */}
       <InstallPWA />
 
       {/* 3D Train Scene */}
@@ -136,7 +162,7 @@ export default function App() {
                 <div className="quick-title">Popular Routes</div>
                 {[
                   ["Shaheed Sthal (New Bus Adda)", "Phase 3"],
-                  ["Rajiv Chowk", "Huda City Centre"],
+                  ["Rajiv Chowk", "Millennium City Centre Gurugram"],
                   ["New Delhi", "IGI Airport T3"],
                   ["Kashmere Gate", "Botanical Garden"],
                 ].map(([s, d]) => (
@@ -189,13 +215,14 @@ export default function App() {
                 title: "Fare Structure",
                 icon: "🎫",
                 items: [
-                  "0–2 km: ₹10",
-                  "2–5 km: ₹20",
-                  "5–12 km: ₹30",
-                  "12–21 km: ₹40",
-                  "21–32 km: ₹50",
-                  "32+ km: ₹60",
+                  "0–2 km: ₹11",
+                  "2–5 km: ₹21",
+                  "5–12 km: ₹32",
+                  "12–21 km: ₹43",
+                  "21–32 km: ₹54",
+                  "32+ km: ₹64",
                   "Smart Card: 10% discount on all journeys",
+                  "Virtual Smart Card: 20% discount on all journeys",
                 ],
               },
               {
@@ -235,15 +262,28 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer */}
+      {/* Footer containing brand details and Visitor Counter */}
       <footer className="footer">
         <div className="footer-inner">
           <span className="footer-text">
             Delhi Metro Rail Corporation Ltd. &bull; Route Planner System
           </span>
         </div>
-        <div className="footer-subtext">
+        
+        <div className="footer-subtext" style={{ marginBottom: 12 }}>
           Network data as of June 2026 &bull; 271+ stations &bull; Helpline: 155370
+        </div>
+
+        {/* Live Visitor Counter */}
+        <div className="visitor-counter">
+          <div className="visitor-badge">
+            <span className="visitor-icon">👥</span>
+            Total Visits: <strong className="visitor-num">{visitorCount.toLocaleString()}</strong>
+          </div>
+          <div className="visitor-badge active-commuters">
+            <span className="active-dot">●</span>
+            Active Commuters: <strong>{activeCommuters}</strong>
+          </div>
         </div>
       </footer>
     </div>

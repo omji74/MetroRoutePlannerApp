@@ -158,11 +158,11 @@ export function dijkstra(src, dst) {
   const totalTime = bestResult.cost;
 
   // Fare calculation
-  const fare = totalTime <= 10 ? 10 :
-               totalTime <= 20 ? 20 :
-               totalTime <= 35 ? 30 :
-               totalTime <= 50 ? 40 :
-               totalTime <= 65 ? 50 : 60;
+  const fare = totalTime <= 10 ? 11 :
+               totalTime <= 20 ? 21 :
+               totalTime <= 35 ? 32 :
+               totalTime <= 50 ? 43 :
+               totalTime <= 65 ? 54 : 64;
 
   return {
     path: pathStations,

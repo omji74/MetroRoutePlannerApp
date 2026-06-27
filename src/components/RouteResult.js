@@ -13,8 +13,12 @@ export default function RouteResult({ result }) {
     );
   }
 
-  // Calculate smart card savings (10% discount)
-  const smartCardSavings = Math.round(result.fare * 0.1);
+  const tokenFare = result.fare;
+  const smartCardSavings = Math.round(tokenFare * 0.1);
+  const virtualCardSavings = Math.round(tokenFare * 0.2);
+
+  const smartCardFare = tokenFare - smartCardSavings;
+  const virtualCardFare = tokenFare - virtualCardSavings;
 
   return (
     <div className="result-container">
@@ -40,15 +44,35 @@ export default function RouteResult({ result }) {
 
         <div className="stat-card">
           <div className="stat-val">
-            ₹{result.fare}
+            ₹{virtualCardFare}
           </div>
-          <div className="stat-lbl">Single Fare</div>
+          <div className="stat-lbl">Best Fare</div>
         </div>
       </div>
 
-      {/* Smart Card Promo */}
-      <div className="savings-badge">
-        🎫 Smart Card Fare: ₹{result.fare - smartCardSavings} &middot; Save 10% (₹{smartCardSavings}) using DMRC Smart Card
+      {/* Fare Comparison Glass Cards */}
+      <div className="card fare-card">
+        <div className="card-label">🎫 Fare Options & Discounts</div>
+        <div className="fare-grid">
+          <div className="fare-option-card">
+            <div className="fare-name">Single Token</div>
+            <div className="fare-price">₹{tokenFare}</div>
+            <div className="fare-desc">Standard fare</div>
+          </div>
+          
+          <div className="fare-option-card">
+            <div className="fare-name">Physical Smart Card</div>
+            <div className="fare-price">₹{smartCardFare}</div>
+            <div className="fare-desc text-green">Save ₹{smartCardSavings} (10%)</div>
+          </div>
+
+          <div className="fare-option-card active-card">
+            <div className="fare-tag">🔥 Virtual Smart Card</div>
+            <div className="fare-name">Virtual Smart Card</div>
+            <div className="fare-price">₹{virtualCardFare}</div>
+            <div className="fare-desc text-green-glow">Save ₹{virtualCardSavings} (20% Off)</div>
+          </div>
+        </div>
       </div>
 
       {/* Timeline Journey Card */}
