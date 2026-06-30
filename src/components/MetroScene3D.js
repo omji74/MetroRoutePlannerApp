@@ -13,6 +13,7 @@ export default function MetroScene3D({ result }) {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setClearColor(0x000000, 0);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -49,11 +50,11 @@ export default function MetroScene3D({ result }) {
     // Glossy Ground Plane
     const groundGeo = new THREE.PlaneGeometry(60, 60);
     const groundMat = new THREE.MeshStandardMaterial({
-      color: 0x020810,
-      metalness: 0.8,
-      roughness: 0.3,
+      color: 0x1a2e4c,
+      metalness: 0.9,
+      roughness: 0.1,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.4,
     });
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.rotation.x = -Math.PI / 2;
@@ -94,10 +95,10 @@ export default function MetroScene3D({ result }) {
         const geo = new THREE.BoxGeometry(1.2, h, 1.2);
         const mat = new THREE.MeshStandardMaterial({
           color: stationColors[Math.abs(i) % 3],
-          metalness: 0.6,
-          roughness: 0.5,
+          metalness: 0.8,
+          roughness: 0.2,
           transparent: true,
-          opacity: 0.8,
+          opacity: 0.45,
         });
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(i * 3.5, h / 2, side);

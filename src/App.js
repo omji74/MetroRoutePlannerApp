@@ -69,8 +69,12 @@ export default function App() {
     setDst(temp);
   };
 
+  const bgImage = theme === "dark"
+    ? "url('/background.jpg')"
+    : "url('/robert-tudor--8x6Ffud7Bk-unsplash.jpg')";
+
   return (
-    <div className={`app-container ${theme}`}>
+    <div className={`app-container ${theme}`} style={{ "--bg-image": bgImage }}>
       {/* Decorative background glows */}
       <div className="bg-glow-1" />
       <div className="bg-glow-2" />
