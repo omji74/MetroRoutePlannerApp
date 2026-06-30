@@ -1,6 +1,41 @@
 import Timeline from "./Timeline";
 
-export default function RouteResult({ result }) {
+function RouteWeatherAlert({ weather, segments }) {
+  const lineNames = Array.from(new Set(segments.map(s => s.line)));
+  const lineList = lineNames.join(", ");
+  
+  let alertText = "";
+  let alertClass = "";
+  let icon = "";
+
+  if (weather.key === "rain") {
+    alertClass = "alert-rain";
+    icon = "⛈️";
+    alertText = `Speed limits are active on elevated sections of ${lineList} due to heavy rainfall. Transfer platforms might be slippery. Allow an extra 5-10 minutes for your trip.`;
+  } else if (weather.key === "cold") {
+    alertClass = "alert-cold";
+    icon = "🌫️";
+    alertText = `Low visibility safety protocols are active on ${lineList} due to dense morning fog. Safety speed restrictions are in effect. Allow an extra 10-15 minutes.`;
+  } else if (weather.key === "summer") {
+    alertClass = "alert-summer";
+    icon = "☀️";
+    alertText = `Outdoor temperature is high (${weather.temp}°C). Elevators and above-ground platforms along ${lineList} might feel warm. Carry water to stay hydrated.`;
+  }
+
+  if (!alertText) return null;
+
+  return (
+    <div className={`route-weather-alert ${alertClass}`}>
+      <span className="route-weather-alert-icon">{icon}</span>
+      <div>
+        <strong style={{ display: "block", marginBottom: "4px" }}>Weather Impact Advisory:</strong>
+        {alertText}
+      </div>
+    </div>
+  );
+}
+
+export default function RouteResult({ result, weather }) {
   if (!result) {
     return (
       <div className="empty-state">
@@ -49,6 +84,11 @@ export default function RouteResult({ result }) {
           <div className="stat-lbl">Best Fare</div>
         </div>
       </div>
+
+      {/* Weather Route Advisory */}
+      {weather && weather.key !== "pleasant" && (
+        <RouteWeatherAlert weather={weather} segments={result.segments} />
+      )}
 
       {/* Fare Comparison Glass Cards */}
       <div className="card fare-card">

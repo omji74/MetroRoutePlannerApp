@@ -8,6 +8,7 @@ import MetroLines from "./components/MetroLines";
 import { allStations } from "./data/metroGraph";
 import { dijkstra } from "./algorithm/dijkstra";
 import useTheme from "./hooks/useTheme";
+import WeatherWidget from "./components/WeatherWidget";
 import "./styles/global.css";
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("planner");
   const [isPeak, setIsPeak] = useState(false);
   const { theme, toggle } = useTheme();
+  const [weather, setWeather] = useState(null);
   
   // Visitor counter state
   const [visitorCount, setVisitorCount] = useState(1284593);
@@ -85,6 +87,7 @@ export default function App() {
         <div className="scene-overlay">
           <div className="scene-label">Live 3D Network Visualization</div>
         </div>
+        <WeatherWidget onWeatherChange={setWeather} />
       </div>
 
       {/* Tab Navigation */}
@@ -190,7 +193,7 @@ export default function App() {
                   <div className="empty-desc">Finding the shortest path and optimizing transfers...</div>
                 </div>
               ) : (
-                <RouteResult result={result} />
+                <RouteResult result={result} weather={weather} />
               )}
             </div>
           </div>

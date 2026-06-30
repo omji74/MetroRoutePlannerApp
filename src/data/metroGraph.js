@@ -123,7 +123,7 @@ function addEdge(a, b, line, t) {
 
 // RAPID METRO (Gurgaon)
 ["Sikanderpur", "Belvedere Towers", "Sector 53 54", "Sector 54 Chowk",
-  "Sector 55 56", "Guru Dronacharya", "Phase 3"
+  "Sector 55 56", "Phase 3"
 ].reduce((p, c) => { if (p) addEdge(p, c, "Rapid Metro", 3); return c; }, null);
 
 export const INTERCHANGES = [
@@ -151,7 +151,6 @@ export const INTERCHANGES = [
   ["Dwarka Sector 21", "Orange Line", "Blue Line", 5],
   ["Anand Vihar", "Pink Line", "Blue Line", 5],
   ["Sikanderpur", "Rapid Metro", "Yellow Line", 5],
-  ["Guru Dronacharya", "Rapid Metro", "Yellow Line", 5],
   ["Mayur Vihar Phase 1", "Pink Line", "Blue Line", 5],
   ["Moolchand", "Violet Line", "Green Line", 5],
 ];
