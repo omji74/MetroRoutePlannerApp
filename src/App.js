@@ -82,8 +82,10 @@ export default function App() {
       <InstallPWA />
 
       {/* 3D Train Scene */}
-      <div className="scene-wrap">
-        <MetroScene3D result={result} />
+      <div className="scene-wrap" style={{ overflow: "visible" }}>
+        <div style={{ width: "100%", height: "100%", overflow: "hidden", borderRadius: "inherit", position: "absolute", inset: 0 }}>
+          <MetroScene3D result={result} />
+        </div>
         <div className="scene-overlay">
           <div className="scene-label">Live 3D Network Visualization</div>
         </div>

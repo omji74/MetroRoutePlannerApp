@@ -1343,4 +1343,117 @@ body {
   100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
+/* ==========================================
+   Metro Line Stations Timeline & Grid
+   ========================================== */
+.line-stations-container {
+  margin-top: 20px;
+  border-top: 1px solid var(--border-glass);
+  padding-top: 20px;
+  animation: slide-down-stations 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slide-down-stations {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.line-stations-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.line-stations-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-bottom: 10px;
+}
+
+/* Beautiful custom scrollbar for stations listing */
+.line-stations-list::-webkit-scrollbar {
+  width: 6px;
+}
+.line-stations-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.line-stations-list::-webkit-scrollbar-thumb {
+  background: var(--border-glass-hover);
+  border-radius: 3px;
+}
+
+.line-station-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.light .line-station-row {
+  background: rgba(0, 0, 0, 0.01);
+}
+
+.line-station-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-glass-hover);
+  transform: translateY(-1px);
+}
+.light .line-station-row:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.line-station-dot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.line-station-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.line-station-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.line-station-interchanges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.line-station-badge {
+  font-size: 8px;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 20px;
+  color: #ffffff;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+  letter-spacing: 0.5px;
+}
+
 
