@@ -39,7 +39,7 @@ const PRESETS = {
     rainProb: 5,
     desc: "Dense Morning Fog",
     icon: "🌫️",
-    advisory: "🌫️ Dense fog in NCR. Visibility < 50m. Speed limit of 30 km/h on all elevated line sections. Expect delays of 10-15 minutes.",
+    advisory: "🌫️ Dense fog in NCR. Visibility < 50m. ",
     advisoryClass: "advisory-cold"
   },
   summer: {
@@ -52,7 +52,7 @@ const PRESETS = {
     rainProb: 0,
     desc: "Scorching Heatwave",
     icon: "☀️",
-    advisory: "☀️ Extreme Heatwave. Outdoor temp is 43°C. Station cooling is operating at maximum capacity. Stay hydrated. Carry a water bottle.",
+    advisory: "☀️ Extreme Heatwave.",
     advisoryClass: "advisory-summer"
   }
 };
